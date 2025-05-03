@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "../headers/globals.h"
 
 void renderText(const std::string& text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color)
@@ -147,4 +149,35 @@ void initFonts(int windowWidth, int windowHeight)
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void displayTexts() {
+    static glm::vec3 yellow = glm::vec3(1.0f, 1.0f, 0);
+    static glm::vec3 blue = glm::vec3(0.0f, 0.0f, 1.0f);
+
+    static glm::vec2 rightBottom = glm::vec2(gWidth, 0);
+    static glm::vec2 leftBottom = glm::vec2(0, 0);
+
+
+    renderText(std::string("exposure = " + std::to_string(exposure) ), rightBottom.x -120, rightBottom.y + 25, 0.35, yellow);
+
+    static uint shownFrameCount = 0;
+    if (!lastPressedKey.empty()) {
+        renderText(lastPressedKey, leftBottom.x + 5, rightBottom.y + 5, 0.35, blue);
+        if (shownFrameCount == keyPressShowingFrameCount) {
+            shownFrameCount = 0;
+            lastPressedKey = "";
+        }
+        shownFrameCount++;
+    }
+}
+
+void savePressedKey(int key, int scancode) {
+    const char* keyNameC = glfwGetKeyName(key, scancode);
+    if (keyNameC) {
+        lastPressedKey = keyNameC;
+        std::transform(lastPressedKey.begin(), lastPressedKey.end(), lastPressedKey.begin(), ::toupper); // convert to uppercase
+    } else {
+        lastPressedKey = "";
+    }
 }

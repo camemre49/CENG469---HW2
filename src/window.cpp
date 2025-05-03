@@ -104,12 +104,12 @@ void initVBO()
 void init()
 {
 	ParseObj("armadillo.obj", 0);
-	ParseObj("quad.obj", 1);
+	ParseObj("cubemap.obj", 1);
 
 	glEnable(GL_DEPTH_TEST);
-	initCubemap();
 	initShaders();
 	initVBO();
+	initCubemap();
 	initFonts(gWidth, gHeight);
 }
 

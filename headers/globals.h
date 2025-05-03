@@ -10,8 +10,6 @@
 extern GLuint vao[3];
 // Shader program identifiers (e.g., separate programs for object rendering and text rendering)
 extern GLuint gProgram[3];
-// Texture ID used for text rendering or object texturing
-extern GLuint texture;
 // Window dimensions
 extern int gWidth, gHeight;
 
@@ -60,6 +58,8 @@ extern glm::vec3 eyeUp;
 
 // Map of characters to their associated texture and size metrics
 extern std::map<GLchar, Character> Characters;
+extern std::string lastPressedKey;
+extern uint keyPressShowingFrameCount;
 
 
 // =============================================
@@ -100,4 +100,15 @@ extern int gVertexDataSizeInBytes[2], gNormalDataSizeInBytes[2], gTextureDataSiz
 
 // Pointer to the GLFW window object
 extern GLFWwindow* window;
+
+
+// =============================================
+// Cubemap Initialization and Control
+// =============================================
+
+// Texture ID used for cubemap rendering
+extern GLuint cubemapTexture;
+// Current exposure value of the cubemap fragment shader
+extern GLint exposure;
+
 #endif // GLOBALS_H

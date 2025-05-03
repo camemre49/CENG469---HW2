@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "../headers/globals.h"
 
 void reshape(GLFWwindow* window, int w, int h)
@@ -13,13 +15,20 @@ void reshape(GLFWwindow* window, int w, int h)
 
 void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
-	{
-		glfwSetWindowShouldClose(window, GLFW_TRUE);
-	}
-	else if (key == GLFW_KEY_F && action == GLFW_PRESS)
-	{
-		//glShadeModel(GL_FLAT);
+	if (action == GLFW_PRESS) {
+		savePressedKey(key, scancode);
+		switch (key) {
+			case GLFW_KEY_Q:
+				glfwSetWindowShouldClose(window, GLFW_TRUE);
+				break;
+			case GLFW_KEY_KP_ADD:
+				exposure++;
+				break;
+			case GLFW_KEY_KP_SUBTRACT:
+				exposure--;
+				break;
+			default: ;
+		}
 	}
 }
 

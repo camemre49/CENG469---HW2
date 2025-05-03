@@ -6,7 +6,7 @@ void drawScene()
 {
 	for (size_t t = 0; t < 2; t++)
 	{
-		glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
 
 		// Set the active program and the values of its uniform variables
 		glUseProgram(gProgram[t]);
@@ -20,13 +20,14 @@ void drawScene()
 		if (IS_CUBEMAP_PROGRAM(t)) {
 			glDepthMask(GL_FALSE);
 			glDepthFunc(GL_LEQUAL);
+			glUniform1i(glGetUniformLocation(gProgram[t], "exposure"), exposure);
 		}
 
 		glDrawElements(GL_TRIANGLES, gFaces[t].size() * 3, GL_UNSIGNED_INT, 0);
 
 		if (IS_CUBEMAP_PROGRAM(t)) {
-			glDepthFunc(GL_LESS);   // Restore default
 			glDepthMask(GL_TRUE);
+			glDepthFunc(GL_LESS);
 		}
 	}
 }
@@ -38,67 +39,23 @@ void display()
 	glClearStencil(0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-	static float angle = 0;
+	static glm::quat rotationQuat = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+	static float rotationAngle = 0.0f;
 
-	float angleRad = (float)(angle / 180.0) * M_PI;
+	// Place the object to center and rotate around y axis
+	rotationQuat = glm::angleAxis(rotationAngle, glm::vec3(0.0f, 1.0f, 0.0f));
+	modelingMatrix = translate(glm::mat4(1.0f), glm::vec3(0, -0.4f, -3.0f)) * mat4_cast(rotationQuat);
 
-	// Compute the modeling matrix
-
-	//modelingMatrix = glm::translate(glm::mat4(1.0), glm::vec3(0.0f, -0.4f, -5.0f));
-	//modelingMatrix = glm::rotate(modelingMatrix, angleRad, glm::vec3(0.0, 1.0, 0.0));
-	glm::mat4 matT = glm::translate(glm::mat4(1.0), glm::vec3(-0.5f, -0.4f, -5.0f));   // same as above but more clear
-	//glm::mat4 matR = glm::rotate(glm::mat4(1.0), angleRad, glm::vec3(0.0, 1.0, 0.0));
-	glm::mat4 matRx = glm::rotate<float>(glm::mat4(1.0), (-90. / 180.) * M_PI, glm::vec3(1.0, 0.0, 0.0));
-	glm::mat4 matRy = glm::rotate<float>(glm::mat4(1.0), (-90. / 180.) * M_PI, glm::vec3(0.0, 1.0, 0.0));
-	glm::mat4 matRz = glm::rotate<float>(glm::mat4(1.0), angleRad, glm::vec3(0.0, 0.0, 1.0));
-	modelingMatrix = matRy * matRx;
-
-	// Let's make some alternating roll rotation
-	static float rollDeg = 0;
-	static float changeRoll = 2.5;
-	float rollRad = (float)(rollDeg / 180.f) * M_PI;
-	rollDeg += changeRoll;
-	if (rollDeg >= 10.f || rollDeg <= -10.f)
-	{
-		changeRoll *= -1.f;
-	}
-	glm::mat4 matRoll = glm::rotate<float>(glm::mat4(1.0), rollRad, glm::vec3(1.0, 0.0, 0.0));
-
-	// Let's make some pitch rotation
-	static float pitchDeg = 0;
-	static float changePitch = 0.1;
-	float startPitch = 0;
-	float endPitch = 90;
-	float pitchRad = (float)(pitchDeg / 180.f) * M_PI;
-	pitchDeg += changePitch;
-	if (pitchDeg >= endPitch)
-	{
-		changePitch = 0;
-	}
-	//glm::mat4 matPitch = glm::rotate<float>(glm::mat4(1.0), pitchRad, glm::vec3(0.0, 0.0, 1.0));
-	//modelingMatrix = matRoll * matPitch * modelingMatrix; // gimbal lock
-	//modelingMatrix = matPitch * matRoll * modelingMatrix;   // no gimbal lock
-
-	glm::quat q0(0, 1, 0, 0); // along x
-	glm::quat q1(0, 0, 1, 0); // along y
-	glm::quat q = glm::mix(q0, q1, (pitchDeg - startPitch) / (endPitch - startPitch));
-
-	float sint = sin(rollRad / 2);
-	glm::quat rollQuat(cos(rollRad / 2), sint * q.x, sint * q.y, sint * q.z);
-	glm::quat pitchQuat(cos(pitchRad / 2), 0, 0, 1 * sin(pitchRad / 2));
-	//modelingMatrix = matT * glm::toMat4(pitchQuat) * glm::toMat4(rollQuat) * modelingMatrix;
-	modelingMatrix = matT * glm::toMat4(rollQuat) * glm::toMat4(pitchQuat) * modelingMatrix; // roll is based on pitch
-
-	//cout << rollQuat.w << " " << rollQuat.x << " " << rollQuat.y << " " << rollQuat.z << endl;
+	// Increase the angle and if it exceeds 2 pi wrap.
+	rotationAngle += 0.005f;
+	rotationAngle = fmod(rotationAngle, glm::two_pi<float>());
 
 	// Draw the scene
 	drawScene();
 
     glDisable(GL_DEPTH_TEST);
-    renderText("Test", 0, gHeight - 25, 0.6, glm::vec3(1, 1, 0));
+    displayTexts();
     glEnable(GL_DEPTH_TEST);
-
-	angle += 0.5;
 }
 
 void mainLoop(GLFWwindow* window)

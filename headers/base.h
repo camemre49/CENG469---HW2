@@ -96,6 +96,8 @@ void setCallbacks();
 // =============================================
 void initFonts(int windowWidth, int windowHeight);
 void renderText(const std::string& text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
+void displayTexts();
+void savePressedKey(int key, int scancode);
 
 // =============================================
 // Cubemap Texture Initialization & Control

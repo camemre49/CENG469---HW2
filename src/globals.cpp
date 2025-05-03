@@ -1,11 +1,10 @@
 #include "../headers/globals.h"
 
 // =============================================
-// Uniform Locations (for sending matrices and eye position to shaders)
+// Global OpenGL Identifiers
 // =============================================
 GLuint vao[3];
 GLuint gProgram[3];
-GLuint texture;
 int gWidth = 640, gHeight = 480;
 
 // =============================================
@@ -34,6 +33,8 @@ glm::mat4 viewingMatrix = glm::lookAt(eyePos, eyePos + eyeGaze, eyeUp);
 // Font Rendering (e.g., for displaying text with FreeType)
 // =============================================
 std::map<GLchar, Character> Characters;
+std::string lastPressedKey;
+extern uint keyPressShowingFrameCount = 30;
 
 // =============================================
 // Mesh Data for Two Models
@@ -62,4 +63,5 @@ GLFWwindow* window;
 // Cubemap Initialization and Control
 // =============================================
 GLuint cubemapTexture;
+GLint exposure = 2;
 
