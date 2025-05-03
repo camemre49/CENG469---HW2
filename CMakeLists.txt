@@ -19,6 +19,7 @@ add_executable(hw2 src/main.cpp
         src/file_utilities.cpp
         src/shaders.cpp
         src/callback.cpp
+        src/cubemap.cpp
 )
 
 # Link OpenGL, GLEW, and GLFW to the target executable

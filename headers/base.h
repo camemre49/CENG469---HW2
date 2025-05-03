@@ -30,6 +30,8 @@
 // Gets the index and convert it into a pointer offset
 #define CONVERT_TO_BUFFER_OFFSET(i) ((char*)NULL + (i))
 
+#define IS_CUBEMAP_PROGRAM(i) (i == 1)
+
 // Struct definitions
 struct Vertex {
     Vertex(GLfloat inX, GLfloat inY, GLfloat inZ) : x(inX), y(inY), z(inZ) {}
@@ -85,15 +87,19 @@ void initShaders();
 // =============================================
 // Rendering & Graphics Initialization
 // =============================================
-void initTexture();
 void initVBO();
 GLFWwindow*  initWindow();
 void setCallbacks();
 
-/**
- *  Text related functions
-*/
+// =============================================
+// Text Initialization & Rendering
+// =============================================
 void initFonts(int windowWidth, int windowHeight);
 void renderText(const std::string& text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
+
+// =============================================
+// Cubemap Texture Initialization & Control
+// =============================================
+void initCubemap();
 
 #endif //BASE_H

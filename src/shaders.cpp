@@ -68,8 +68,8 @@ void initShaders()
 	GLuint fs1 = createFS("frag.glsl"); //or frag2.glsl
 
 	//for background quad
-	GLuint vs2 = createVS("vert_quad.glsl");
-	GLuint fs2 = createFS("frag_quad.glsl");
+	GLuint vs2 = createVS("vert_cubemap.glsl");
+	GLuint fs2 = createFS("frag_cubemap.glsl");
 
 	//for background quad
 	GLuint vs3 = createVS("vert_text.glsl");

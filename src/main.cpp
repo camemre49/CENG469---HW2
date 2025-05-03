@@ -4,10 +4,10 @@ using namespace std;
 
 void drawScene()
 {
-	glBindTexture(GL_TEXTURE_2D, texture);
-
 	for (size_t t = 0; t < 2; t++)
 	{
+		glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
+
 		// Set the active program and the values of its uniform variables
 		glUseProgram(gProgram[t]);
 		glUniformMatrix4fv(projectionMatrixLoc[t], 1, GL_FALSE, glm::value_ptr(projectionMatrix));
@@ -17,13 +17,17 @@ void drawScene()
 
 		glBindVertexArray(vao[t]);
 
-		if (t == 1)
+		if (IS_CUBEMAP_PROGRAM(t)) {
 			glDepthMask(GL_FALSE);
+			glDepthFunc(GL_LEQUAL);
+		}
 
 		glDrawElements(GL_TRIANGLES, gFaces[t].size() * 3, GL_UNSIGNED_INT, 0);
 
-		if (t == 1)
+		if (IS_CUBEMAP_PROGRAM(t)) {
+			glDepthFunc(GL_LESS);   // Restore default
 			glDepthMask(GL_TRUE);
+		}
 	}
 }
 
