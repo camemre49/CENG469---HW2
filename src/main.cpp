@@ -2,6 +2,19 @@
 
 using namespace std;
 
+void setObjectMatrices() {
+	static glm::quat rotationQuat = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+	static float rotationAngle = 0.0f;
+
+	// Place the object to center and rotate around y axis
+	rotationQuat = glm::angleAxis(rotationAngle, glm::vec3(0.0f, 1.0f, 0.0f));
+	modelingMatrix = translate(glm::mat4(1.0f), glm::vec3(0, -0.4f, -3.0f)) * mat4_cast(rotationQuat);
+
+	// Increase the angle and if it exceeds 2 pi wrap.
+	rotationAngle += 0.005f;
+	rotationAngle = fmod(rotationAngle, glm::two_pi<float>());
+}
+
 void drawScene()
 {
 	for (size_t t = 0; t < 2; t++)
@@ -39,16 +52,9 @@ void display()
 	glClearStencil(0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-	static glm::quat rotationQuat = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-	static float rotationAngle = 0.0f;
+	setObjectMatrices();
+	calculateCurrentFps();
 
-	// Place the object to center and rotate around y axis
-	rotationQuat = glm::angleAxis(rotationAngle, glm::vec3(0.0f, 1.0f, 0.0f));
-	modelingMatrix = translate(glm::mat4(1.0f), glm::vec3(0, -0.4f, -3.0f)) * mat4_cast(rotationQuat);
-
-	// Increase the angle and if it exceeds 2 pi wrap.
-	rotationAngle += 0.005f;
-	rotationAngle = fmod(rotationAngle, glm::two_pi<float>());
 
 	// Draw the scene
 	drawScene();

@@ -95,11 +95,12 @@ extern int gVertexDataSizeInBytes[2], gNormalDataSizeInBytes[2], gTextureDataSiz
 
 
 // =============================================
-// GLFW Window Pointer
+// Window Related Variables
 // =============================================
 
 // Pointer to the GLFW window object
 extern GLFWwindow* window;
+extern GLuint fps;
 
 
 // =============================================

@@ -90,6 +90,7 @@ void initShaders();
 void initVBO();
 GLFWwindow*  initWindow();
 void setCallbacks();
+void calculateCurrentFps();
 
 // =============================================
 // Text Initialization & Rendering

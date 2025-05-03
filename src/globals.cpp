@@ -55,9 +55,10 @@ GLint gInNormalLoc[2];
 int gVertexDataSizeInBytes[2], gNormalDataSizeInBytes[2], gTextureDataSizeInBytes[2];
 
 // =============================================
-// GLFW Window Pointer
+// Window Related Variables
 // =============================================
 GLFWwindow* window;
+GLuint fps;
 
 // =============================================
 // Cubemap Initialization and Control

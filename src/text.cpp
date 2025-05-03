@@ -154,21 +154,30 @@ void initFonts(int windowWidth, int windowHeight)
 void displayTexts() {
     static glm::vec3 yellow = glm::vec3(1.0f, 1.0f, 0);
     static glm::vec3 blue = glm::vec3(0.0f, 0.0f, 1.0f);
+    static glm::vec3 green = glm::vec3(0.0f, 1.0f, 0.0f);
 
     static glm::vec2 rightBottom = glm::vec2(gWidth, 0);
     static glm::vec2 leftBottom = glm::vec2(0, 0);
+    static glm::vec2 leftTop = glm::vec2(0, gHeight);
 
-
+    // render exposure value
     renderText(std::string("exposure = " + std::to_string(exposure) ), rightBottom.x -120, rightBottom.y + 25, 0.35, yellow);
 
-    static uint shownFrameCount = 0;
+    // Render fps
+    if (fps > 0) {
+        renderText("FPS: " + std::to_string(fps), leftTop.x + 15, leftTop.y - 40, 0.8f, green);
+        keyPressShowingFrameCount = fps / 3;
+    }
+
+    // Render pressed key for a while
+    static uint shownFrameCountOfKey = 0;
     if (!lastPressedKey.empty()) {
         renderText(lastPressedKey, leftBottom.x + 5, rightBottom.y + 5, 0.35, blue);
-        if (shownFrameCount == keyPressShowingFrameCount) {
-            shownFrameCount = 0;
+        if (shownFrameCountOfKey == keyPressShowingFrameCount) {
+            shownFrameCountOfKey = 0;
             lastPressedKey = "";
         }
-        shownFrameCount++;
+        shownFrameCountOfKey++;
     }
 }
 
