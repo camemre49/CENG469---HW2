@@ -22,10 +22,22 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 				glfwSetWindowShouldClose(window, GLFW_TRUE);
 				break;
 			case GLFW_KEY_KP_ADD:
-				exposure++;
+				exposure *= 2;
 				break;
 			case GLFW_KEY_KP_SUBTRACT:
-				exposure--;
+				exposure > 1 ? exposure /= 2 : exposure = 1;
+				break;
+			case GLFW_KEY_R:
+				shouldMove = !shouldMove;
+				break;
+
+
+			// RENDER MODE
+			case GLFW_KEY_0:
+				currentRenderMode = TONEMAPPED;
+				break;
+			case GLFW_KEY_1:
+				currentRenderMode = CUBE_ONLY;
 				break;
 			default: ;
 		}

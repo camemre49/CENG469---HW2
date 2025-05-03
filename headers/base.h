@@ -71,6 +71,18 @@ struct Character {
     GLuint Advance;     // Horizontal offset to advance to next glyph
 };
 
+enum RenderMode {
+    TONEMAPPED,
+    CUBE_ONLY,
+};
+inline std::string toString(RenderMode mode) {
+    switch (mode) {
+        case TONEMAPPED: return "TONEMAPPED";
+        case CUBE_ONLY: return "CUBE_ONLY";
+        default: return "UNKNOWN";
+    }
+}
+
 // =============================================
 // File & Resource Loading Utilities
 // =============================================

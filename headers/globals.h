@@ -60,6 +60,8 @@ extern glm::vec3 eyeUp;
 extern std::map<GLchar, Character> Characters;
 extern std::string lastPressedKey;
 extern uint keyPressShowingFrameCount;
+extern bool shouldMove;
+extern RenderMode currentRenderMode;
 
 
 // =============================================
@@ -111,5 +113,11 @@ extern GLuint fps;
 extern GLuint cubemapTexture;
 // Current exposure value of the cubemap fragment shader
 extern GLint exposure;
+// Key value of Reinhard Tonemapping
+extern GLfloat key;
+// Gamma correction value
+extern GLfloat gammaValue;
+// Reingard tone mapping average luminance
+extern GLfloat logAverageLuminance;
 
 #endif // GLOBALS_H

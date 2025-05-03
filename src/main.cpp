@@ -10,9 +10,11 @@ void setObjectMatrices() {
 	rotationQuat = glm::angleAxis(rotationAngle, glm::vec3(0.0f, 1.0f, 0.0f));
 	modelingMatrix = translate(glm::mat4(1.0f), glm::vec3(0, -0.4f, -3.0f)) * mat4_cast(rotationQuat);
 
-	// Increase the angle and if it exceeds 2 pi wrap.
-	rotationAngle += 0.005f;
-	rotationAngle = fmod(rotationAngle, glm::two_pi<float>());
+	if (shouldMove) {
+		// Increase the angle and if it exceeds 2 pi wrap.
+		rotationAngle += 0.005f;
+		rotationAngle = fmod(rotationAngle, glm::two_pi<float>());
+	}
 }
 
 void drawScene()
@@ -27,6 +29,7 @@ void drawScene()
 		glUniformMatrix4fv(viewingMatrixLoc[t], 1, GL_FALSE, glm::value_ptr(viewingMatrix));
 		glUniformMatrix4fv(modelingMatrixLoc[t], 1, GL_FALSE, glm::value_ptr(modelingMatrix));
 		glUniform3fv(eyePosLoc[t], 1, glm::value_ptr(eyePos));
+		glUniform1i(glGetUniformLocation(gProgram[t], "renderMode"), currentRenderMode);
 
 		glBindVertexArray(vao[t]);
 
@@ -34,6 +37,9 @@ void drawScene()
 			glDepthMask(GL_FALSE);
 			glDepthFunc(GL_LEQUAL);
 			glUniform1i(glGetUniformLocation(gProgram[t], "exposure"), exposure);
+			glUniform1f(glGetUniformLocation(gProgram[t], "logAverageLuminance"), logAverageLuminance);
+			glUniform1f(glGetUniformLocation(gProgram[t], "key"), key);
+			glUniform1f(glGetUniformLocation(gProgram[t], "gamma"), gammaValue);
 		}
 
 		glDrawElements(GL_TRIANGLES, gFaces[t].size() * 3, GL_UNSIGNED_INT, 0);

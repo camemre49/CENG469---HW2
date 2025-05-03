@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iomanip>
 
 #include "../headers/globals.h"
 
@@ -151,21 +152,42 @@ void initFonts(int windowWidth, int windowHeight)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+auto floatToString = [](float value, int precision = 2) {
+    std::ostringstream out;
+    out << std::fixed << std::setprecision(precision) << value;
+    std::string str = out.str();
+    // Trim trailing zeros and possibly the decimal point
+    str.erase(str.find_last_not_of('0') + 1, std::string::npos);
+    if (str.back() == '.') str.pop_back();
+    return str;
+};
+
 void displayTexts() {
     static glm::vec3 yellow = glm::vec3(1.0f, 1.0f, 0);
     static glm::vec3 blue = glm::vec3(0.0f, 0.0f, 1.0f);
     static glm::vec3 green = glm::vec3(0.0f, 1.0f, 0.0f);
+    static glm::vec3 red = glm::vec3(1.0f, 0.0f, 0.0f);
 
-    static glm::vec2 rightBottom = glm::vec2(gWidth, 0);
+    static float bottomMargin = 5;
+    static glm::vec2 rightBottom = glm::vec2(gWidth, bottomMargin);
     static glm::vec2 leftBottom = glm::vec2(0, 0);
+    static glm::vec2 rightTop = glm::vec2(gWidth, gHeight);
     static glm::vec2 leftTop = glm::vec2(0, gHeight);
 
-    // render exposure value
-    renderText(std::string("exposure = " + std::to_string(exposure) ), rightBottom.x -120, rightBottom.y + 25, 0.35, yellow);
+    // render shading related values from bottom to top
+    float charHeight = 18;
+    float charWidth = 9;
+    float scale = 0.3;
+    std::string str = std::string("gamma = " + floatToString(gammaValue));
+    renderText(str, rightBottom.x - str.size() * charWidth, rightBottom.y, scale, yellow);
+    str = std::string("key = " + floatToString(key));
+    renderText(str, rightBottom.x - str.size() * charWidth, rightBottom.y + charHeight, scale, yellow);
+    str = std::string("exposure = " + std::to_string(exposure));
+    renderText(str, rightBottom.x - (str.size() - 1) * charWidth , rightBottom.y + charHeight * 2, scale, yellow);
 
     // Render fps
     if (fps > 0) {
-        renderText("FPS: " + std::to_string(fps), leftTop.x + 15, leftTop.y - 40, 0.8f, green);
+        renderText("FPS: " + std::to_string(fps), leftTop.x + 15, leftTop.y - 25, 0.5f, green);
         keyPressShowingFrameCount = fps / 3;
     }
 
@@ -179,6 +201,10 @@ void displayTexts() {
         }
         shownFrameCountOfKey++;
     }
+
+    // Render current render mode
+    std::string mode = toString(currentRenderMode);
+    renderText(toString(currentRenderMode), rightTop.x - mode.size()*18, rightTop.y - 25, 0.5f, red);
 }
 
 void savePressedKey(int key, int scancode) {

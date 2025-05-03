@@ -34,7 +34,9 @@ glm::mat4 viewingMatrix = glm::lookAt(eyePos, eyePos + eyeGaze, eyeUp);
 // =============================================
 std::map<GLchar, Character> Characters;
 std::string lastPressedKey;
-extern uint keyPressShowingFrameCount = 30;
+uint keyPressShowingFrameCount = 30;
+bool shouldMove = true;
+RenderMode currentRenderMode = TONEMAPPED;
 
 // =============================================
 // Mesh Data for Two Models
@@ -64,5 +66,8 @@ GLuint fps;
 // Cubemap Initialization and Control
 // =============================================
 GLuint cubemapTexture;
-GLint exposure = 2;
+GLint exposure = 1;
+GLfloat key = 0.18;
+GLfloat gammaValue = 2.2;
+GLfloat logAverageLuminance = 0;
 
