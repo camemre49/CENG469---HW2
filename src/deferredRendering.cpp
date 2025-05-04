@@ -92,8 +92,10 @@ void renderGeometry() {
     glUseProgram(geometryVisualizeProgram);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, gPosition);
-    glActiveTexture(GL_TEXTURE2);
+    glUniform1i(glGetUniformLocation(geometryVisualizeProgram, "gPosition"), 0);
+    glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, gNormal);
+    glUniform1i(glGetUniformLocation(geometryVisualizeProgram, "gNormal"), 1);
 
     glBindVertexArray(quadVAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
