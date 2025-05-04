@@ -76,6 +76,18 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 			case GLFW_KEY_1:
 				currentRenderMode = CUBE_ONLY;
 				break;
+			case GLFW_KEY_2:
+				currentRenderMode = MODELS_WORLD_POS;
+				break;
+			case GLFW_KEY_3:
+				currentRenderMode = MODELS_WORLD_NOR;
+				break;
+			case GLFW_KEY_4:
+				currentRenderMode = DEFERRED_RENDERING;
+				break;
+			case GLFW_KEY_5:
+				currentRenderMode = COMPOSITE;
+				break;
 			default: ;
 		}
 	}

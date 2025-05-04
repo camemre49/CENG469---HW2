@@ -18,13 +18,17 @@ void setObjectMatrices() {
 }
 
 void drawScene() {
-	makeGeometryPass();
-	// This occludes the cubemap. If cubemap needs to be rendered, call this function after cubemap.
-	renderGeometry();
-
-	for (size_t t = 1; t < 2; t++)
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	bool fullRender =
+		currentRenderMode == TONEMAPPED ||
+		currentRenderMode == CUBE_ONLY ||
+		currentRenderMode == COMPOSITE;
+	bool renderObject =
+		currentRenderMode != CUBE_ONLY &&
+		currentRenderMode != COMPOSITE;
+	for (size_t t = renderObject ? 0 : 1; t < 2 && fullRender; t++)
 	{
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
 
 		// Set the active program and the values of its uniform variables
@@ -52,6 +56,11 @@ void drawScene() {
 			glDepthMask(GL_TRUE);
 			glDepthFunc(GL_LESS);
 		}
+	}
+
+	if (!fullRender || currentRenderMode == COMPOSITE) {
+		makeGeometryPass();
+		renderGeometry();
 	}
 }
 

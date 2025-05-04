@@ -67,7 +67,6 @@ void initQuad() {
 
 void makeGeometryPass()
 {
-    glEnable(GL_DEPTH_TEST);
     glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glUseProgram(geometryPassProgram);
@@ -84,12 +83,15 @@ void makeGeometryPass()
     glBindVertexArray(0);
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void renderGeometry() {
     glUseProgram(geometryVisualizeProgram);
+
+    glUniform1i(glGetUniformLocation(geometryVisualizeProgram, "renderMode"), currentRenderMode);
+    glUniform1i(glGetUniformLocation(geometryVisualizeProgram, "exposure"), exposure);
+    glUniform3fv(glGetUniformLocation(geometryVisualizeProgram, "eyePos"), 1, glm::value_ptr(eyePos));
+
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, gPosition);
     glUniform1i(glGetUniformLocation(geometryVisualizeProgram, "gPosition"), 0);

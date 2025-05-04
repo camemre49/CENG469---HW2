@@ -72,13 +72,21 @@ struct Character {
 };
 
 enum RenderMode {
-    TONEMAPPED,
-    CUBE_ONLY,
+    TONEMAPPED, // = 0
+    CUBE_ONLY, // = 1
+    MODELS_WORLD_POS, // = 2
+    MODELS_WORLD_NOR, // = 3
+    DEFERRED_RENDERING, // = 4
+    COMPOSITE, // = 5
 };
 inline std::string toString(RenderMode mode) {
     switch (mode) {
         case TONEMAPPED: return "TONEMAPPED";
         case CUBE_ONLY: return "CUBE_ONLY";
+        case MODELS_WORLD_POS: return "MODELS_WORLD_POS";
+        case MODELS_WORLD_NOR: return "MODELS_WORLD_NOR";
+        case DEFERRED_RENDERING: return "DEFERRED_RENDERING";
+        case COMPOSITE: return "COMPOSITE";
         default: return "UNKNOWN";
     }
 }
