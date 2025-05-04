@@ -61,6 +61,7 @@ int gVertexDataSizeInBytes[2], gNormalDataSizeInBytes[2], gTextureDataSizeInByte
 // Window Related Variables
 // =============================================
 GLFWwindow* window;
+int windowedXPos, windowedYPos, windowedWidth, windowedHeight;
 GLuint fps;
 bool vsync = true;
 
