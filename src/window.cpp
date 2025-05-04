@@ -110,6 +110,7 @@ void init()
 	initShaders();
 	initVBO();
 	initCubemap();
+	initGBuffer();
 	initFonts(gWidth, gHeight);
 }
 

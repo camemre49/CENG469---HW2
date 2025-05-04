@@ -5,6 +5,7 @@
 // =============================================
 GLuint vao[3];
 GLuint gProgram[3];
+GLuint geometryPassProgram;
 int gWidth = 640, gHeight = 480;
 
 // =============================================
@@ -71,4 +72,10 @@ GLint exposure = 1;
 GLfloat key = 0.18;
 GLfloat gammaValue = 2.2;
 GLfloat logAverageLuminance = 0;
+
+// =============================================
+// Cubemap Initialization and Control
+// =============================================
+GLuint gBuffer;
+GLuint gPosition, gNormal, gAlbedoSpec;
 

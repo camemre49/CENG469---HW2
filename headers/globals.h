@@ -10,6 +10,8 @@
 extern GLuint vao[3];
 // Shader program identifiers (e.g., separate programs for object rendering and text rendering)
 extern GLuint gProgram[3];
+// Geometry pass shader program
+extern GLuint geometryPassProgram;
 // Window dimensions
 extern int gWidth, gHeight;
 
@@ -121,4 +123,9 @@ extern GLfloat gammaValue;
 // Reingard tone mapping average luminance
 extern GLfloat logAverageLuminance;
 
+// =============================================
+// Cubemap Initialization and Control
+// =============================================
+extern GLuint gBuffer;
+extern GLuint gPosition, gNormal, gAlbedoSpec;
 #endif // GLOBALS_H

@@ -16,10 +16,11 @@ add_executable(hw2 src/main.cpp
         headers/globals.h
         src/window.cpp
         src/text.cpp
-        src/file_utilities.cpp
+        src/fileUtilities.cpp
         src/shaders.cpp
         src/callback.cpp
         src/hdrCubemap.cpp
+        src/deferredRendering.cpp
 )
 
 # Link OpenGL, GLEW, and GLFW to the target executable

@@ -117,4 +117,9 @@ void savePressedKey(int key, int scancode);
 // =============================================
 void initCubemap();
 
+// =============================================
+// Deferred Rendering
+// =============================================
+void initGBuffer();
+
 #endif //BASE_H

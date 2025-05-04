@@ -60,6 +60,7 @@ void initShaders()
 	gProgram[0] = glCreateProgram(); //for armadillo
 	gProgram[1] = glCreateProgram(); //for background quad
 	gProgram[2] = glCreateProgram(); //for text rendering
+	geometryPassProgram = glCreateProgram(); // for geometry pass
 
 	// Create the shaders for both programs
 
@@ -71,9 +72,13 @@ void initShaders()
 	GLuint vs2 = createVS("vert_cubemap.glsl");
 	GLuint fs2 = createFS("frag_cubemap.glsl");
 
-	//for background quad
+	//for texts
 	GLuint vs3 = createVS("vert_text.glsl");
 	GLuint fs3 = createFS("frag_text.glsl");
+
+	// for geometry pass
+	GLuint shaderVs = createVS("vert_geometry.glsl");
+	GLuint shaderFs = createFS("frag_geometry.glsl");
 
 	// Attach the shaders to the programs
 
@@ -85,6 +90,9 @@ void initShaders()
 
 	glAttachShader(gProgram[2], vs3);
 	glAttachShader(gProgram[2], fs3);
+
+	glAttachShader(geometryPassProgram, shaderVs);
+	glAttachShader(geometryPassProgram, shaderFs);
 
 	// Link the programs
 
@@ -109,6 +117,15 @@ void initShaders()
 
 	glLinkProgram(gProgram[2]);
 	glGetProgramiv(gProgram[2], GL_LINK_STATUS, &status);
+
+	if (status != GL_TRUE)
+	{
+		cout << "Program link failed" << endl;
+		exit(-1);
+	}
+
+	glLinkProgram(geometryPassProgram);
+	glGetProgramiv(geometryPassProgram, GL_LINK_STATUS, &status);
 
 	if (status != GL_TRUE)
 	{
