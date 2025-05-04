@@ -1,21 +1,21 @@
 #version 330 core
-layout(location = 0) in vec3 position;
-layout(location = 1) in vec3 normal;
-layout(location = 2) in vec2 texCoords;
+layout(location=0) in vec3 inVertex;
+layout(location=1) in vec3 inNormal;
+layout(location=2) in vec3 inTexture;
 
-out VS_OUT {
-    vec3 FragPos;
-    vec3 Normal;
-    vec2 TexCoords;
-} vs_out;
+uniform mat4 modelingMatrix;
+uniform mat4 viewingMatrix;
+uniform mat4 projectionMatrix;
 
-uniform mat4 projection;
-uniform mat4 view;
-uniform mat4 model;
+out vec3 fragPosition;
+out vec3 fragNormal;
 
 void main() {
-    vs_out.FragPos = vec3(model * vec4(position, 1.0));
-    vs_out.Normal = mat3(transpose(inverse(model))) * normal;
-    vs_out.TexCoords = texCoords;
-    gl_Position = projection * view * vec4(vs_out.FragPos, 1.0);
+    vec4 worlPos = modelingMatrix * vec4(inVertex, 1.0);
+    fragPosition = worlPos.xyz; // world-space position
+
+    mat3 normalMatrix = transpose(inverse(mat3(modelingMatrix)));
+    fragNormal = normalMatrix * inNormal;  // world-space normal
+
+    gl_Position = projectionMatrix * viewingMatrix * worlPos;
 }

@@ -17,10 +17,16 @@ void setObjectMatrices() {
 	}
 }
 
-void drawScene()
-{
-	for (size_t t = 0; t < 2; t++)
+void drawScene() {
+	makeGeometryPass();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// This occludes the cubemap. If cubemap needs to be rendered, call this function after cubemap.
+	renderGeometry();
+
+	for (size_t t = 1; t < 2; t++)
 	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
 
 		// Set the active program and the values of its uniform variables

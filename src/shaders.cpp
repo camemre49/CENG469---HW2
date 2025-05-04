@@ -61,6 +61,7 @@ void initShaders()
 	gProgram[1] = glCreateProgram(); //for background quad
 	gProgram[2] = glCreateProgram(); //for text rendering
 	geometryPassProgram = glCreateProgram(); // for geometry pass
+	geometryVisualizeProgram = glCreateProgram(); // for geometry rendering
 
 	// Create the shaders for both programs
 
@@ -80,6 +81,9 @@ void initShaders()
 	GLuint shaderVs = createVS("vert_geometry.glsl");
 	GLuint shaderFs = createFS("frag_geometry.glsl");
 
+	GLuint visualizeVS = createVS("vert_geometry_visualization.glsl");
+	GLuint visualizeFS = createFS("frag_geometry_visualization.glsl");
+
 	// Attach the shaders to the programs
 
 	glAttachShader(gProgram[0], vs1);
@@ -93,6 +97,9 @@ void initShaders()
 
 	glAttachShader(geometryPassProgram, shaderVs);
 	glAttachShader(geometryPassProgram, shaderFs);
+
+	glAttachShader(geometryVisualizeProgram, visualizeVS);
+	glAttachShader(geometryVisualizeProgram, visualizeFS);
 
 	// Link the programs
 
@@ -126,6 +133,15 @@ void initShaders()
 
 	glLinkProgram(geometryPassProgram);
 	glGetProgramiv(geometryPassProgram, GL_LINK_STATUS, &status);
+
+	if (status != GL_TRUE)
+	{
+		cout << "Program link failed" << endl;
+		exit(-1);
+	}
+
+	glLinkProgram(geometryVisualizeProgram);
+	glGetProgramiv(geometryVisualizeProgram, GL_LINK_STATUS, &status);
 
 	if (status != GL_TRUE)
 	{

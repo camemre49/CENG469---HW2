@@ -111,6 +111,7 @@ void init()
 	initVBO();
 	initCubemap();
 	initGBuffer();
+	initQuad();
 	initFonts(gWidth, gHeight);
 }
 
@@ -121,13 +122,9 @@ GLFWwindow* initWindow() {
 		exit(-1);
 	}
 
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
-	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	window = glfwCreateWindow(gWidth, gHeight, "Simple Example", NULL, NULL);
 
@@ -154,7 +151,6 @@ GLFWwindow* initWindow() {
 	glfwSetWindowTitle(window, rendererInfo);
 
 	init();
-
 	return window;
 }
 

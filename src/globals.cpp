@@ -6,6 +6,7 @@
 GLuint vao[3];
 GLuint gProgram[3];
 GLuint geometryPassProgram;
+GLuint geometryVisualizeProgram;
 int gWidth = 640, gHeight = 480;
 
 // =============================================
@@ -40,7 +41,7 @@ bool shouldMove = true;
 RenderMode currentRenderMode = TONEMAPPED;
 
 // =============================================
-// Mesh Data for Two Models
+// Mesh Data for Armadillo, Cubemap
 // =============================================
 std::vector<Vertex> gVertices[2];
 std::vector<Texture> gTextures[2];
@@ -78,5 +79,5 @@ GLfloat logAverageLuminance = 0;
 // Cubemap Initialization and Control
 // =============================================
 GLuint gBuffer;
-GLuint gPosition, gNormal, gAlbedoSpec;
+GLuint gPosition, gNormal, gDepth;
 

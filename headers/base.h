@@ -121,5 +121,8 @@ void initCubemap();
 // Deferred Rendering
 // =============================================
 void initGBuffer();
+void initQuad();
+void makeGeometryPass();
+void renderGeometry();
 
 #endif //BASE_H

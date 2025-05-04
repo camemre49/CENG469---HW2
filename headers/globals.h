@@ -12,6 +12,8 @@ extern GLuint vao[3];
 extern GLuint gProgram[3];
 // Geometry pass shader program
 extern GLuint geometryPassProgram;
+// Program to show geometry of objects
+extern GLuint geometryVisualizeProgram;
 // Window dimensions
 extern int gWidth, gHeight;
 
@@ -67,7 +69,7 @@ extern RenderMode currentRenderMode;
 
 
 // =============================================
-// Mesh Data for Two Models
+// Mesh Data for Armadillo, Cubemap
 // =============================================
 
 // Vertex positions for two different objects (indexed by 0 and 1)
@@ -128,5 +130,5 @@ extern GLfloat logAverageLuminance;
 // Cubemap Initialization and Control
 // =============================================
 extern GLuint gBuffer;
-extern GLuint gPosition, gNormal, gAlbedoSpec;
+extern GLuint gPosition, gNormal, gDepth;
 #endif // GLOBALS_H
