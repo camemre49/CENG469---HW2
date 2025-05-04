@@ -8,5 +8,5 @@ in vec3 fragNormal;
 void main()
 {
     gPosition = fragPosition;
-    gNormal = normalize(fragNormal);
+    gNormal = fragNormal;
 }
