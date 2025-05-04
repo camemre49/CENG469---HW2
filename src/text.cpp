@@ -184,7 +184,7 @@ void displayTexts() {
     float scale = 0.3;
     std::string str = std::string("gamma = " + floatToString(gammaValue));
     renderText(str, rightBottom.x - str.size() * charWidth, rightBottom.y, scale, yellow);
-    str = std::string("key = " + floatToString(key));
+    str = std::string("key = " + floatToString(keyValue));
     renderText(str, rightBottom.x - str.size() * charWidth, rightBottom.y + charHeight, scale, yellow);
     str = std::string("exposure = " + std::to_string(exposure));
     renderText(str, rightBottom.x - (str.size() - 1) * charWidth , rightBottom.y + charHeight * 2, scale, yellow);

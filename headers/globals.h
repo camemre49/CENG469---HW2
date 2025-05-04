@@ -118,7 +118,7 @@ extern GLuint cubemapTexture;
 // Current exposure value of the cubemap fragment shader
 extern GLint exposure;
 // Key value of Reinhard Tonemapping
-extern GLfloat key;
+extern GLfloat keyValue;
 // Gamma correction value
 extern GLfloat gammaValue;
 // Reingard tone mapping average luminance

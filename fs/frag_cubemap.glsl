@@ -26,7 +26,7 @@ void main(void)
 	if(renderMode == 0) {
 		// Apply Reinhard tonemapping
 		float luminance = (hdrColor.r * 0.2126 + hdrColor.g * 0.7152 + hdrColor.b * 0.0722);
-		float luminanceScaled = luminance * (key / logAverageLuminance);
+		float luminanceScaled = luminance * (key / logAverageLuminance / exposure);
 		float luminanceSigmoid = luminanceScaled / (luminanceScaled + 1);
 		vec3 clampedColor = clamp((luminanceSigmoid / luminance) * hdrColor, vec3(0, 0, 0), vec3(1, 1, 1));
 

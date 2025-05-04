@@ -70,7 +70,7 @@ bool vsync = true;
 // =============================================
 GLuint cubemapTexture;
 GLint exposure = 1;
-GLfloat key = 0.18;
+GLfloat keyValue = 0.18;
 GLfloat gammaValue = 2.2;
 GLfloat logAverageLuminance = 0;
 
