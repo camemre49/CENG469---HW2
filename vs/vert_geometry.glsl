@@ -6,16 +6,15 @@ uniform mat4 modelingMatrix;
 uniform mat4 viewingMatrix;
 uniform mat4 projectionMatrix;
 
-out vec3 fragPosition;
-out vec3 fragNormal;
+out vec4 fragPosition;
+out vec4 fragNormal;
 
 void main() {
-    vec4 worlPos = modelingMatrix * vec4(inVertex, 1.0);
-    fragPosition = worlPos.xyz; // world-space position
+    fragPosition = vec4(inVertex, 1.0);
 
     mat4 modelViewMatrix = viewingMatrix * modelingMatrix;
     mat3 normalMatrix = transpose(inverse(mat3(modelViewMatrix)));
-    fragNormal = normalMatrix * inNormal;  // world-space normal
+    fragNormal = vec4(normalMatrix * inNormal, 1.0);  // world-space normal
 
-    gl_Position = projectionMatrix * viewingMatrix * worlPos;
+    gl_Position = projectionMatrix * viewingMatrix * modelingMatrix * fragPosition;
 }

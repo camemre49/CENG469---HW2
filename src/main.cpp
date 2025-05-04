@@ -3,7 +3,7 @@
 using namespace std;
 
 void setObjectMatrices() {
-	static glm::quat rotationQuat = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+	static glm::quat rotationQuat = glm::quat(-1.0f, 0.0f, 0.0f, 0.0f);
 	static float rotationAngle = 0.0f;
 
 	// Place the object to center and rotate around y axis
@@ -19,8 +19,6 @@ void setObjectMatrices() {
 
 void drawScene() {
 	makeGeometryPass();
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	// This occludes the cubemap. If cubemap needs to be rendered, call this function after cubemap.
 	renderGeometry();
 

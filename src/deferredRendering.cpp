@@ -67,9 +67,11 @@ void initQuad() {
 
 void makeGeometryPass()
 {
+    glEnable(GL_DEPTH_TEST);
     glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glUseProgram(geometryPassProgram);
+
 
     // Set uniforms for transformations
     glUniformMatrix4fv(glGetUniformLocation(geometryPassProgram, "modelingMatrix"), 1, GL_FALSE, glm::value_ptr(modelingMatrix));
@@ -82,13 +84,15 @@ void makeGeometryPass()
     glBindVertexArray(0);
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void renderGeometry() {
     glUseProgram(geometryVisualizeProgram);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, gPosition);
-    glActiveTexture(GL_TEXTURE1);
+    glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, gNormal);
 
     glBindVertexArray(quadVAO);

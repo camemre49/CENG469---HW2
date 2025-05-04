@@ -1,9 +1,9 @@
 #version 330 core
-layout(location = 0) out vec3 gPosition;
-layout(location = 1) out vec3 gNormal;
+layout(location = 0) out vec4 gPosition;
+layout(location = 1) out vec4 gNormal;
 
-in vec3 fragPosition;
-in vec3 fragNormal;
+in vec4 fragPosition;
+in vec4 fragNormal;
 
 void main()
 {
