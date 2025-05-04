@@ -11,6 +11,7 @@ void reshape(GLFWwindow* window, int w, int h)
 	gHeight = h;
 
 	glViewport(0, 0, w, h);
+	initGBuffer();
 }
 
 void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
