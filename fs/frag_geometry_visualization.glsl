@@ -7,63 +7,50 @@ uniform sampler2D gPosition;
 uniform sampler2D gNormal;
 uniform int renderMode;
 
-// Point light definition (for now 1, can be extended)
-const vec3 objectColor = vec3(0.6, 0.5, 0);
-
-const int NUM_LIGHTS = 4;
-const vec3 lightPositions[NUM_LIGHTS] = vec3[](
-vec3(0.0, 2.5, -1.0),   // Light 1
-vec3(0.0, 2.5, 3.0),   // Light 1
-vec3(0.0, -2.0, -1.0),  // Light 2
-vec3(0.0, 0.0, 2.0)    // Light 3
-);
+// Light settings
+vec3 I = vec3(1, 1, 1);          // point light intensity
+vec3 Iamb = vec3(0.8, 0.8, 0.8); // ambient light intensity
+vec3 kd = vec3(0.6, 0.5, 0);     // diffuse reflectance coefficient
+vec3 ka = vec3(0.3, 0.3, 0.3);   // ambient reflectance coefficient
+vec3 ks = vec3(0.8, 0.8, 0.8);   // specular reflectance coefficient
+vec3 lightPos = vec3(5, 5, 5);   // light position in world coordinates
 
 uniform vec3 eyePos;
 uniform int exposure;
 
 void main() {
     if (renderMode == 2) {
-        // if(length(texture(gPosition, TexCoords).xyz) < 0.0001) discard;
-        FragColor = normalize(texture(gPosition, TexCoords).xyzw);
+        vec3 pos = texture(gPosition, TexCoords).xyz;
+        if(length(pos) < 0.0001) discard;
+        // Normalize each component separately
+        FragColor = vec4(normalize(vec3(pos.x + 0.5, pos.y + 0.4, pos.z + 3)), 0.4);
     }
     else if(renderMode == 3)
     {
-        // if(length(texture(gNormal, TexCoords).xyz) < 0.0001) discard;
+        if(length(texture(gNormal, TexCoords).xyz) < 0.0001) discard;
         FragColor = normalize(texture(gNormal, TexCoords).xyzw);
     }
     else if (renderMode == 4 || renderMode == 5) {
-        vec3 FragPos = texture(gPosition, TexCoords).xyz;
+        vec3 FragPos = texture(gPosition, TexCoords).rgb;
         if(length(FragPos) < 0.0001){
             discard;
         };
-        vec3 Normal = normalize(texture(gNormal, TexCoords).rgb);
-        vec3 ViewDir = normalize(eyePos - FragPos);
-        vec3 lighting = vec3(0.0);
-        vec3 lightColor = vec3(0.6, 0.6, 0.6);
+        vec3 FragNormal = normalize(texture(gNormal, TexCoords).rgb);
+        vec3 L = normalize(lightPos - FragPos);
+        vec3 V = normalize(eyePos - FragPos);
+        vec3 H = normalize(L + V);
+        vec3 N = normalize(FragNormal);
 
-        for (int i = 0; i < NUM_LIGHTS; ++i) {
-            vec3 lightPos = lightPositions[i];
+        float NdotL = max(dot(N, L), 0.0);
+        float NdotH = max(dot(N, H), 0.0);
 
-            vec3 LightDir = normalize(lightPos - FragPos);
-            vec3 HalfDir = normalize(ViewDir + LightDir);
+        vec3 diffuseColor = I * kd * max(0, NdotL);
+        vec3 specularColor = I * ks * pow(NdotH, 100.0);
+        vec3 ambientColor = Iamb * ka;
 
-            float distance = length(lightPos - FragPos);
-            float attenuation = 1.0 / (distance * distance);
+        vec3 finalColor = diffuseColor + specularColor + ambientColor;
 
-            float diff = max(dot(Normal, LightDir), 0.0);
-            float spec = pow(max(dot(Normal, HalfDir), 0.0), 32.0);
-
-            vec3 ambient = 0.05 * lightColor;
-            vec3 diffuse = diff * lightColor;
-            vec3 specular = spec * lightColor;
-
-            lighting += (ambient + diffuse + specular) * attenuation;
-        }
-
-        lighting *= objectColor;
-        lighting *= exposure * 0.7;
-
-        FragColor = vec4(lighting, 1.0);
+        FragColor = vec4(clamp(finalColor, 0.0, 1.0), 1.0);
     }
     else {
         discard;
