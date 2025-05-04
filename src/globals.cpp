@@ -61,6 +61,7 @@ int gVertexDataSizeInBytes[2], gNormalDataSizeInBytes[2], gTextureDataSizeInByte
 // =============================================
 GLFWwindow* window;
 GLuint fps;
+bool vsync = true;
 
 // =============================================
 // Cubemap Initialization and Control

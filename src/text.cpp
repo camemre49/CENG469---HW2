@@ -162,6 +162,10 @@ auto floatToString = [](float value, int precision = 2) {
     return str;
 };
 
+std::string booleanToString(bool value) {
+    return value ? "true" : "false";
+}
+
 void displayTexts() {
     static glm::vec3 yellow = glm::vec3(1.0f, 1.0f, 0);
     static glm::vec3 blue = glm::vec3(0.0f, 0.0f, 1.0f);
@@ -174,7 +178,7 @@ void displayTexts() {
     static glm::vec2 rightTop = glm::vec2(gWidth, gHeight);
     static glm::vec2 leftTop = glm::vec2(0, gHeight);
 
-    // render shading related values from bottom to top
+    // render shading related values and vsync from bottom to top
     float charHeight = 18;
     float charWidth = 9;
     float scale = 0.3;
@@ -184,6 +188,8 @@ void displayTexts() {
     renderText(str, rightBottom.x - str.size() * charWidth, rightBottom.y + charHeight, scale, yellow);
     str = std::string("exposure = " + std::to_string(exposure));
     renderText(str, rightBottom.x - (str.size() - 1) * charWidth , rightBottom.y + charHeight * 2, scale, yellow);
+    str = std::string("vsync = " + booleanToString(vsync));
+    renderText(str, rightBottom.x - (str.size() - 1) * charWidth , rightBottom.y + charHeight * 3, scale, yellow);
 
     // Render fps
     if (fps > 0) {
@@ -195,7 +201,7 @@ void displayTexts() {
     static uint shownFrameCountOfKey = 0;
     if (!lastPressedKey.empty()) {
         renderText(lastPressedKey, leftBottom.x + 5, rightBottom.y + 5, 0.35, blue);
-        if (shownFrameCountOfKey == keyPressShowingFrameCount) {
+        if (shownFrameCountOfKey > keyPressShowingFrameCount) {
             shownFrameCountOfKey = 0;
             lastPressedKey = "";
         }

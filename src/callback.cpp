@@ -30,6 +30,11 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 			case GLFW_KEY_R:
 				shouldMove = !shouldMove;
 				break;
+			case GLFW_KEY_V:
+				static int swapInterval = 0;
+				glfwSwapInterval(swapInterval);
+				swapInterval = swapInterval == 0 ? 1 : 0;
+				break;
 
 
 			// RENDER MODE
