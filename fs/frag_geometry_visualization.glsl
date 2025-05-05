@@ -6,17 +6,16 @@ in vec2 TexCoords;
 uniform sampler2D gPosition;
 uniform sampler2D gNormal;
 uniform int renderMode;
-
-// Light settings
-vec3 I = vec3(1, 1, 1);          // point light intensity
-vec3 Iamb = vec3(0.8, 0.8, 0.8); // ambient light intensity
-vec3 kd = vec3(0.6, 0.5, 0);     // diffuse reflectance coefficient
-vec3 ka = vec3(0.3, 0.3, 0.3);   // ambient reflectance coefficient
-vec3 ks = vec3(0.8, 0.8, 0.8);   // specular reflectance coefficient
-vec3 lightPos = vec3(5, 5, 5);   // light position in world coordinates
-
 uniform vec3 eyePos;
 uniform int exposure;
+
+// Light settings
+vec3 I = vec3(1.0) * exposure * 0.4;
+vec3 Iamb = vec3(0.3);
+vec3 kd = vec3(0.4, 0.2, 0);     // diffuse reflectance coefficient
+vec3 ka = vec3(0.2, 0.2, 0.2);   // ambient reflectance coefficient
+vec3 ks = vec3(0.3, 0.3, 0.3);   // specular reflectance coefficient
+vec3 lightPos = vec3(5, 5, 5);   // light position in world coordinates
 
 void main() {
     if (renderMode == 2) {
@@ -27,7 +26,7 @@ void main() {
     }
     else if(renderMode == 3)
     {
-        if(length(texture(gNormal, TexCoords).xyz) < 0.0001) discard;
+        if(length(texture(gNormal, TexCoords).xyz) < 0.00001) discard;
         FragColor = normalize(texture(gNormal, TexCoords).xyzw);
     }
     else if (renderMode == 4 || renderMode == 5) {
