@@ -62,6 +62,7 @@ void initShaders()
 	gProgram[2] = glCreateProgram(); //for text rendering
 	geometryPassProgram = glCreateProgram(); // for geometry pass
 	geometryVisualizeProgram = glCreateProgram(); // for geometry rendering
+	motionBlurProgram = glCreateProgram(); // for motion blur
 
 	// Create the shaders for both programs
 
@@ -84,6 +85,9 @@ void initShaders()
 	GLuint visualizeVS = createVS("vert_geometry_visualization.glsl");
 	GLuint visualizeFS = createFS("frag_geometry_visualization.glsl");
 
+	GLuint motionBlurVS = createVS("vert_motion_blur.glsl");
+	GLuint motionBlurFS = createFS("frag_motion_blur.glsl");
+
 	// Attach the shaders to the programs
 
 	glAttachShader(gProgram[0], vs1);
@@ -100,6 +104,9 @@ void initShaders()
 
 	glAttachShader(geometryVisualizeProgram, visualizeVS);
 	glAttachShader(geometryVisualizeProgram, visualizeFS);
+
+	glAttachShader(motionBlurProgram, motionBlurVS);
+	glAttachShader(motionBlurProgram, motionBlurFS);
 
 	// Link the programs
 
@@ -142,6 +149,15 @@ void initShaders()
 
 	glLinkProgram(geometryVisualizeProgram);
 	glGetProgramiv(geometryVisualizeProgram, GL_LINK_STATUS, &status);
+
+	if (status != GL_TRUE)
+	{
+		cout << "Program link failed" << endl;
+		exit(-1);
+	}
+
+	glLinkProgram(motionBlurProgram);
+	glGetProgramiv(motionBlurProgram, GL_LINK_STATUS, &status);
 
 	if (status != GL_TRUE)
 	{

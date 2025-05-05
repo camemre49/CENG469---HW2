@@ -7,6 +7,7 @@ GLuint vao[3];
 GLuint gProgram[3];
 GLuint geometryPassProgram;
 GLuint geometryVisualizeProgram;
+GLuint motionBlurProgram;
 int gWidth = 640, gHeight = 480;
 
 // =============================================
@@ -76,10 +77,11 @@ GLfloat gammaValue = 2.2;
 GLfloat logAverageLuminance = 0;
 
 // =============================================
-// Cubemap Initialization and Control
+// Deferred Rendering Buffers
 // =============================================
 GLuint gBuffer;
 GLuint gPosition, gNormal, gDepth;
+unsigned int quadVAO;
 
 // =============================================
 // Mouse Control
@@ -87,7 +89,13 @@ GLuint gPosition, gNormal, gDepth;
 float mouseSensitivity = 0.1f;
 float yaw = -90.0f;
 float pitch = 0.0f;
+
+// =============================================
+// Motion Blur
+// =============================================
+GLuint sceneFBO, sceneColorTex, sceneDepthRBO;
 float blurAmount = 0.0f;
+float blurScale = 1.8f;
 float previousYaw = yaw;
 float previousPitch = pitch;
 double previousTime = glfwGetTime();

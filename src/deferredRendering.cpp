@@ -1,6 +1,4 @@
 #include "../headers/globals.h"
-
-unsigned int quadVAO = 0;
 unsigned int quadVBO;
 
 void initGBuffer() {
@@ -82,7 +80,7 @@ void makeGeometryPass()
     glDrawElements(GL_TRIANGLES, gFaces[0].size() * 3, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glBindFramebuffer(GL_FRAMEBUFFER, sceneFBO);
 }
 
 void renderGeometry() {

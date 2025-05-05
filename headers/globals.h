@@ -14,6 +14,8 @@ extern GLuint gProgram[3];
 extern GLuint geometryPassProgram;
 // Program to show geometry of objects
 extern GLuint geometryVisualizeProgram;
+// Program to apply motion blur
+extern GLuint motionBlurProgram;
 // Window dimensions
 extern int gWidth, gHeight;
 
@@ -127,10 +129,11 @@ extern GLfloat gammaValue;
 extern GLfloat logAverageLuminance;
 
 // =============================================
-// Cubemap Initialization and Control
+// Deferred Rendering Buffers
 // =============================================
 extern GLuint gBuffer;
 extern GLuint gPosition, gNormal, gDepth;
+extern unsigned int quadVAO;
 
 // =============================================
 // Mouse Control
@@ -138,7 +141,13 @@ extern GLuint gPosition, gNormal, gDepth;
 extern float mouseSensitivity;
 extern float yaw;
 extern float pitch;
+
+// =============================================
+// Motion Blur
+// =============================================
+extern GLuint sceneFBO, sceneColorTex, sceneDepthRBO;
 extern float blurAmount;
+extern float blurScale;
 extern float previousYaw;
 extern float previousPitch;
 extern double previousTime;

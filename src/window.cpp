@@ -111,6 +111,7 @@ void init()
 	initVBO();
 	initCubemap();
 	initGBuffer();
+	initMotionBlurFrameBuffer();
 	initQuad();
 	initFonts(gWidth, gHeight);
 }

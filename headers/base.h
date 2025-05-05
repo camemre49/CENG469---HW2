@@ -144,6 +144,8 @@ void resetViewToInitial();
 // =============================================
 // Motion Blur
 // =============================================
+void initMotionBlurFrameBuffer();
+void applyMotionBlur();
 void updateBlurAmountFromCameraRotation();
 
 #endif //BASE_H
