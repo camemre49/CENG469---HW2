@@ -32,7 +32,6 @@ GLuint loadHDRCubemap(const std::vector<std::string>& faces) {
     const float delta = 1e-4f;
 
     for (unsigned int i = 0; i < faces.size(); i++) {
-        int width, height, nrComponents;
         float* data = stbi_loadf(faces[i].c_str(), &width, &height, &nrComponents, 0);
         if (data) {
             int pixelCount = width * height;
@@ -49,7 +48,7 @@ GLuint loadHDRCubemap(const std::vector<std::string>& faces) {
             }
 
             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
-                         0, GL_RGB16F, width, height,
+                         0, GL_RGB32F, width, height,
                          0, GL_RGB, GL_FLOAT, data);
             stbi_image_free(data);
         } else {

@@ -18,7 +18,7 @@ void main(void)
 	hdrColor = hdrColor * exposure;
 
 	// CUBE_ONLY
-	if(renderMode == 0) {
+	if(renderMode == 1) {
 		fragColor = vec4(hdrColor, 1);
 	}
 
