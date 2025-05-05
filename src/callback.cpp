@@ -103,16 +103,14 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 bool middleMousePressed = false;
 glm::vec2 lastMousePos;
 void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
-	if (currentRenderMode == COMPOSITE_AND_MB) {
-		if (button == GLFW_MOUSE_BUTTON_MIDDLE) {
-			if (action == GLFW_PRESS) {
-				middleMousePressed = true;
-				double xpos, ypos;
-				glfwGetCursorPos(window, &xpos, &ypos);
-				lastMousePos = glm::vec2(xpos, ypos);
-			} else if (action == GLFW_RELEASE) {
-				middleMousePressed = false;
-			}
+	if (button == GLFW_MOUSE_BUTTON_MIDDLE) {
+		if (action == GLFW_PRESS) {
+			middleMousePressed = true;
+			double xpos, ypos;
+			glfwGetCursorPos(window, &xpos, &ypos);
+			lastMousePos = glm::vec2(xpos, ypos);
+		} else if (action == GLFW_RELEASE) {
+			middleMousePressed = false;
 		}
 	}
 }
