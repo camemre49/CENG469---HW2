@@ -33,7 +33,7 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 			break;
 			case GLFW_KEY_SPACE:
 				lastPressedKey = "SPACE";
-			static bool isFullScreen = true;
+			static bool isFullScreen = false;
 			if (!isFullScreen) {
 				// Save current window position and size
 				glfwGetWindowPos(window, &windowedXPos, &windowedYPos);
@@ -51,6 +51,7 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 				glfwSetWindowMonitor(window, NULL, windowedXPos, windowedYPos, windowedWidth, windowedHeight, 0);
 				isFullScreen = false;
 			}
+			break;
 
 			// Exposure control
 			case GLFW_KEY_KP_ADD:
@@ -88,13 +89,57 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 			case GLFW_KEY_5:
 				currentRenderMode = COMPOSITE;
 				break;
+			case GLFW_KEY_6:
+				currentRenderMode = COMPOSITE_AND_MB;
+				break;
 			default: ;
 		}
+	}
+}
+
+/**
+ * Set bool and save pressed position when middle mouse is clicked
+ */
+bool middleMousePressed = false;
+glm::vec2 lastMousePos;
+void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+	if (currentRenderMode == COMPOSITE_AND_MB) {
+		if (button == GLFW_MOUSE_BUTTON_MIDDLE) {
+			if (action == GLFW_PRESS) {
+				middleMousePressed = true;
+				double xpos, ypos;
+				glfwGetCursorPos(window, &xpos, &ypos);
+				lastMousePos = glm::vec2(xpos, ypos);
+			} else if (action == GLFW_RELEASE) {
+				middleMousePressed = false;
+			}
+		}
+	}
+}
+
+
+void cursorPosCallback(GLFWwindow* window, double xpos, double ypos) {
+	if (middleMousePressed) {
+		// Calculate mouse movement
+		glm::vec2 currentMousePos(xpos, ypos);
+		glm::vec2 mouseDelta = currentMousePos - lastMousePos;
+		lastMousePos = currentMousePos;
+
+		yaw += mouseDelta.x * mouseSensitivity;
+		pitch -= mouseDelta.y * mouseSensitivity;
+
+		// Constrain pitch to prevent flipping
+		pitch = glm::clamp(pitch, -89.0f, 89.0f);
+
+		// Update viewing matrix
+		updateViewMatrix();
 	}
 }
 
 void setCallbacks() {
     glfwSetKeyCallback(window, keyboard);
     glfwSetWindowSizeCallback(window, reshape);
+	glfwSetMouseButtonCallback(window, mouseButtonCallback);
+	glfwSetCursorPosCallback(window, cursorPosCallback);
     reshape(window, gWidth, gHeight);
 }

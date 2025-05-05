@@ -81,3 +81,10 @@ GLfloat logAverageLuminance = 0;
 GLuint gBuffer;
 GLuint gPosition, gNormal, gDepth;
 
+// =============================================
+// Mouse Control
+// =============================================
+float mouseSensitivity = 0.1f;
+float yaw = -90.0f;
+float pitch = 0.0f;
+

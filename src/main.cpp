@@ -23,10 +23,12 @@ void drawScene() {
 	bool fullRender =
 		currentRenderMode == TONEMAPPED ||
 		currentRenderMode == CUBE_ONLY ||
-		currentRenderMode == COMPOSITE;
+		currentRenderMode == COMPOSITE ||
+		currentRenderMode == COMPOSITE_AND_MB;
 	bool renderObject =
 		currentRenderMode != CUBE_ONLY &&
-		currentRenderMode != COMPOSITE;
+		currentRenderMode != COMPOSITE &&
+		currentRenderMode != COMPOSITE_AND_MB;
 	for (size_t t = renderObject ? 0 : 1; t < 2 && fullRender; t++)
 	{
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
@@ -58,7 +60,7 @@ void drawScene() {
 		}
 	}
 
-	if (!fullRender || currentRenderMode == COMPOSITE) {
+	if (!fullRender || currentRenderMode == COMPOSITE || currentRenderMode == COMPOSITE_AND_MB) {
 		makeGeometryPass();
 		renderGeometry();
 	}
@@ -71,6 +73,9 @@ void display()
 	glClearStencil(0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
+	if (currentRenderMode != COMPOSITE_AND_MB) {
+		// resetViewToInitial();
+	}
 	setObjectMatrices();
 	calculateCurrentFps();
 

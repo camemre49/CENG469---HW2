@@ -78,6 +78,7 @@ enum RenderMode {
     MODELS_WORLD_NOR, // = 3
     DEFERRED_RENDERING, // = 4
     COMPOSITE, // = 5
+    COMPOSITE_AND_MB, // = 6
 };
 inline std::string toString(RenderMode mode) {
     switch (mode) {
@@ -87,6 +88,7 @@ inline std::string toString(RenderMode mode) {
         case MODELS_WORLD_NOR: return "MODELS_WORLD_NOR";
         case DEFERRED_RENDERING: return "DEFERRED_RENDERING";
         case COMPOSITE: return "COMPOSITE";
+        case COMPOSITE_AND_MB: return "COMPOSITE_AND_MB";
         default: return "UNKNOWN";
     }
 }
@@ -132,5 +134,11 @@ void initGBuffer();
 void initQuad();
 void makeGeometryPass();
 void renderGeometry();
+
+// =============================================
+// Mouse Control
+// =============================================
+void updateViewMatrix();
+void resetViewToInitial();
 
 #endif //BASE_H

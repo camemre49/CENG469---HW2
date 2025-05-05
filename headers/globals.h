@@ -131,4 +131,12 @@ extern GLfloat logAverageLuminance;
 // =============================================
 extern GLuint gBuffer;
 extern GLuint gPosition, gNormal, gDepth;
+
+// =============================================
+// Mouse Control
+// =============================================
+extern float mouseSensitivity;
+extern float yaw;
+extern float pitch;
+
 #endif // GLOBALS_H
