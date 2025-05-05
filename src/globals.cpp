@@ -87,4 +87,8 @@ GLuint gPosition, gNormal, gDepth;
 float mouseSensitivity = 0.1f;
 float yaw = -90.0f;
 float pitch = 0.0f;
+float blurAmount = 0.0f;
+float previousYaw = yaw;
+float previousPitch = pitch;
+double previousTime = glfwGetTime();
 

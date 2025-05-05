@@ -22,6 +22,7 @@ add_executable(hw2 src/main.cpp
         src/hdrCubemap.cpp
         src/deferredRendering.cpp
         src/mouseControl.cpp
+        src/motionBlur.cpp
 )
 
 # Link OpenGL, GLEW, and GLFW to the target executable

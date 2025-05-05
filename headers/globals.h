@@ -138,5 +138,9 @@ extern GLuint gPosition, gNormal, gDepth;
 extern float mouseSensitivity;
 extern float yaw;
 extern float pitch;
+extern float blurAmount;
+extern float previousYaw;
+extern float previousPitch;
+extern double previousTime;
 
 #endif // GLOBALS_H

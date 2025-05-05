@@ -141,4 +141,9 @@ void renderGeometry();
 void updateViewMatrix();
 void resetViewToInitial();
 
+// =============================================
+// Motion Blur
+// =============================================
+void updateBlurAmountFromCameraRotation();
+
 #endif //BASE_H
