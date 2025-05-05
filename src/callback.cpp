@@ -58,7 +58,7 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 				exposure *= 2;
 				break;
 			case GLFW_KEY_KP_SUBTRACT:
-				exposure > 1 ? exposure /= 2 : exposure = 1;
+				exposure /= 2;
 				break;
 
 			// Key value control:

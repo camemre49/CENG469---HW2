@@ -118,7 +118,7 @@ extern bool vsync;
 // Texture ID used for cubemap rendering
 extern GLuint cubemapTexture;
 // Current exposure value of the cubemap fragment shader
-extern GLint exposure;
+extern GLfloat exposure;
 // Key value of Reinhard Tonemapping
 extern GLfloat keyValue;
 // Gamma correction value

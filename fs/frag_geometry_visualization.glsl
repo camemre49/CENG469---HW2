@@ -7,7 +7,7 @@ uniform sampler2D gPosition;
 uniform sampler2D gNormal;
 uniform int renderMode;
 uniform vec3 eyePos;
-uniform int exposure;
+uniform float exposure;
 
 // Light settings
 vec3 I = vec3(1.0) * exposure * 0.4;

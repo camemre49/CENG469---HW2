@@ -5,7 +5,7 @@ in vec3 TexCoord;
 out vec4 fragColor;
 
 // Control variables
-uniform int exposure;
+uniform float exposure;
 uniform float logAverageLuminance;
 uniform float key;
 uniform float gamma;

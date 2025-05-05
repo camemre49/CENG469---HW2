@@ -152,7 +152,7 @@ void initFonts(int windowWidth, int windowHeight)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-auto floatToString = [](float value, int precision = 2) {
+auto floatToString = [](float value, int precision = 5) {
     std::ostringstream out;
     out << std::fixed << std::setprecision(precision) << value;
     std::string str = out.str();
@@ -186,7 +186,7 @@ void displayTexts() {
     renderText(str, rightBottom.x - str.size() * charWidth, rightBottom.y, scale, yellow);
     str = std::string("key = " + floatToString(keyValue));
     renderText(str, rightBottom.x - str.size() * charWidth, rightBottom.y + charHeight, scale, yellow);
-    str = std::string("exposure = " + std::to_string(exposure));
+    str = std::string("exposure = " + floatToString(exposure));
     renderText(str, rightBottom.x - (str.size() - 1) * charWidth , rightBottom.y + charHeight * 2, scale, yellow);
     str = std::string("vsync = " + booleanToString(vsync));
     renderText(str, rightBottom.x - (str.size() - 1) * charWidth , rightBottom.y + charHeight * 3, scale, yellow);

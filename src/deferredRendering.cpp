@@ -89,7 +89,7 @@ void renderGeometry() {
     glUseProgram(geometryVisualizeProgram);
 
     glUniform1i(glGetUniformLocation(geometryVisualizeProgram, "renderMode"), currentRenderMode);
-    glUniform1i(glGetUniformLocation(geometryVisualizeProgram, "exposure"), exposure);
+    glUniform1f(glGetUniformLocation(geometryVisualizeProgram, "exposure"), exposure);
     glUniform3fv(glGetUniformLocation(geometryVisualizeProgram, "eyePos"), 1, glm::value_ptr(eyePos));
 
     glActiveTexture(GL_TEXTURE0);

@@ -46,7 +46,7 @@ void drawScene() {
 		if (IS_CUBEMAP_PROGRAM(t)) {
 			glDepthMask(GL_FALSE);
 			glDepthFunc(GL_LEQUAL);
-			glUniform1i(glGetUniformLocation(gProgram[t], "exposure"), exposure);
+			glUniform1f(glGetUniformLocation(gProgram[t], "exposure"), exposure);
 			glUniform1f(glGetUniformLocation(gProgram[t], "logAverageLuminance"), logAverageLuminance);
 			glUniform1f(glGetUniformLocation(gProgram[t], "key"), keyValue);
 			glUniform1f(glGetUniformLocation(gProgram[t], "gamma"), gammaValue);
