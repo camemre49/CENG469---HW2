@@ -120,6 +120,7 @@ void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
 
 void cursorPosCallback(GLFWwindow* window, double xpos, double ypos) {
 	if (middleMousePressed) {
+		lastPressedKey = "MIDDLE MOUSE AND MOUSE MOVEMENT";
 		// Calculate mouse movement
 		glm::vec2 currentMousePos(xpos, ypos);
 		glm::vec2 mouseDelta = currentMousePos - lastMousePos;
