@@ -18,7 +18,7 @@ void setObjectMatrices() {
 }
 
 void drawScene() {
-	glBindFramebuffer(GL_FRAMEBUFFER, sceneFBO);
+	glBindFramebuffer(GL_FRAMEBUFFER, isBlurEnabled ? sceneFBO : 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	bool fullRender =
 		currentRenderMode == TONEMAPPED ||
@@ -80,7 +80,9 @@ void display()
 
 	// Draw the scene
 	drawScene();
-	applyMotionBlur();
+	if (isBlurEnabled) {
+		applyMotionBlur();
+	}
 
     glDisable(GL_DEPTH_TEST);
     displayTexts();

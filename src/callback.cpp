@@ -26,12 +26,15 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 
 			case GLFW_KEY_R:
 				shouldMove = !shouldMove;
-			break;
+				break;
 			case GLFW_KEY_V:
 				static int swapInterval = 1;
 			swapInterval = swapInterval == 0 ? 1 : 0;
 			glfwSwapInterval(swapInterval);
-			break;
+				break;
+			case GLFW_KEY_M:
+				isBlurEnabled = !isBlurEnabled;
+				break;
 			case GLFW_KEY_SPACE:
 				lastPressedKey = "SPACE";
 			static bool isFullScreen = false;

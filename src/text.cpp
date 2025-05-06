@@ -186,10 +186,12 @@ void displayTexts() {
     renderText(str, rightBottom.x - str.size() * charWidth, rightBottom.y, scale, yellow);
     str = std::string("key = " + floatToString(keyValue));
     renderText(str, rightBottom.x - str.size() * charWidth, rightBottom.y + charHeight, scale, yellow);
+    str = "motionblur: " + booleanToString(isBlurEnabled);
+    renderText(str, rightBottom.x - (str.size() - 4) * charWidth, rightBottom.y + charHeight * 2, scale, yellow);
     str = std::string("exposure = " + floatToString(exposure));
-    renderText(str, rightBottom.x - (str.size() - 1) * charWidth , rightBottom.y + charHeight * 2, scale, yellow);
-    str = std::string("vsync = " + booleanToString(vsync));
     renderText(str, rightBottom.x - (str.size() - 1) * charWidth , rightBottom.y + charHeight * 3, scale, yellow);
+    str = std::string("vsync = " + booleanToString(vsync));
+    renderText(str, rightBottom.x - (str.size() - 1) * charWidth , rightBottom.y + charHeight * 4, scale, yellow);
 
     // Render fps
     if (fps > 0) {

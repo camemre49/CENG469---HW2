@@ -80,7 +80,7 @@ void makeGeometryPass()
     glDrawElements(GL_TRIANGLES, gFaces[0].size() * 3, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 
-    glBindFramebuffer(GL_FRAMEBUFFER, sceneFBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, isBlurEnabled ? sceneFBO : 0);
 }
 
 void renderGeometry() {

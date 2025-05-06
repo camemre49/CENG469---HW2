@@ -94,6 +94,7 @@ float pitch = 0.0f;
 // Motion Blur
 // =============================================
 GLuint sceneFBO, sceneColorTex, sceneDepthRBO;
+bool isBlurEnabled = true;
 float blurAmount = 0.0f;
 float blurScale = 1.8f;
 float previousYaw = yaw;

@@ -7,7 +7,8 @@ uniform sampler2D sceneTex;
 uniform float blurAmount;
 
 // Constants
-const int samples = 8;
+const int samples = 4;
+const float blurScaleFactor = 15.f;
 
 void main() {
     vec2 texelSize = 1.0 / textureSize(sceneTex, 0);
@@ -18,7 +19,7 @@ void main() {
 
     for (int i = -samples; i <= samples; ++i) {
         float weight = 1.0 - abs(float(i)) / float(samples);
-        vec2 offset = vec2(i) * texelSize * (blurAmount) * 20.0; // 20 is scale factor
+        vec2 offset = vec2(i) * texelSize * (blurAmount) * blurScaleFactor;
         accum += texture(sceneTex, TexCoords + offset).rgb * weight;
         total += weight;
     }

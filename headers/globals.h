@@ -146,6 +146,7 @@ extern float pitch;
 // Motion Blur
 // =============================================
 extern GLuint sceneFBO, sceneColorTex, sceneDepthRBO;
+extern bool isBlurEnabled;
 extern float blurAmount;
 extern float blurScale;
 extern float previousYaw;
