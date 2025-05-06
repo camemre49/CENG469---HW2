@@ -10,8 +10,7 @@ void updateBlurAmountFromCameraRotation() {
     float angularVelocity = sqrt(yawDelta * yawDelta + pitchDelta * pitchDelta) / static_cast<float>(deltaTime);
 
     // Scale and clamp to get a blur amount
-    float blurFactor = glm::clamp(angularVelocity * 0.02f, 0.0f, 1.0f);
-    blurFactor /= blurScale; // Scale down for smoother blur
+    float blurFactor = glm::clamp(angularVelocity / blurScale, 0.0f, 0.8f);
 
     // Smooth it over time
     float decaySpeed = 3.0f;

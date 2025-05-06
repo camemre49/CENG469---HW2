@@ -96,7 +96,7 @@ float pitch = 0.0f;
 GLuint sceneFBO, sceneColorTex, sceneDepthRBO;
 bool isBlurEnabled = true;
 float blurAmount = 0.0f;
-float blurScale = 1.8f;
+float blurScale = 200.0f;
 float previousYaw = yaw;
 float previousPitch = pitch;
 double previousTime = glfwGetTime();
