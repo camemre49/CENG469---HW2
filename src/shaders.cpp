@@ -67,8 +67,8 @@ void initShaders()
 	// Create the shaders for both programs
 
 	//for armadillo
-	GLuint vs1 = createVS("vert.glsl"); //or vert2.glsl
-	GLuint fs1 = createFS("frag.glsl"); //or frag2.glsl
+	GLuint vs1 = createVS("vert.glsl");
+	GLuint fs1 = createFS("frag.glsl");
 
 	//for background quad
 	GLuint vs2 = createVS("vert_cubemap.glsl");

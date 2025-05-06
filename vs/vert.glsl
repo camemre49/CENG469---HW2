@@ -6,22 +6,23 @@
 // However, we will not change them and therefore we define them 
 // here for simplicity.
 
-vec3 I = vec3(1, 1, 1);          // point light intensity
-vec3 Iamb = vec3(0.8, 0.8, 0.8); // ambient light intensity
-vec3 kd = vec3(0.75, 0.5, 0);     // diffuse reflectance coefficient
-vec3 ka = vec3(0.3, 0.3, 0.3);   // ambient reflectance coefficient
-vec3 ks = vec3(0.8, 0.8, 0.8);   // specular reflectance coefficient
-vec3 lightPos = vec3(5, 5, 5);   // light position in world coordinates
-
 uniform mat4 modelingMatrix;
 uniform mat4 viewingMatrix;
 uniform mat4 projectionMatrix;
 uniform vec3 eyePos;
+uniform float key;
 
 layout(location=0) in vec3 inVertex;
 layout(location=1) in vec3 inNormal;
 
 out vec4 color;
+
+vec3 I = vec3(5.55f) * key;          // point light intensity
+vec3 Iamb = vec3(0.8, 0.8, 0.8); // ambient light intensity
+vec3 kd = vec3(0.8, 0.6, 0);     // diffuse reflectance coefficient
+vec3 ka = vec3(0.1, 0.1, 0.1);   // ambient reflectance coefficient
+vec3 ks = vec3(0.8, 0.8, 0.8);   // specular reflectance coefficient
+vec3 lightPos = vec3(5, 5, 5);   // light position in world coordinates
 
 void main(void)
 {

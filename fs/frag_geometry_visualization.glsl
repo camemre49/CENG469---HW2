@@ -12,8 +12,8 @@ uniform float exposure;
 // Light settings
 vec3 I = vec3(1.0) * exposure * 0.4;
 vec3 Iamb = vec3(0.3);
-vec3 kd = vec3(0.3, 0.2, 0);     // diffuse reflectance coefficient
-vec3 ka = vec3(0.2, 0.2, 0.2);   // ambient reflectance coefficient
+vec3 kd = vec3(0.4, 0.3, 0);     // diffuse reflectance coefficient
+vec3 ka = vec3(0.1, 0.1, 0.1);   // ambient reflectance coefficient
 vec3 ks = vec3(0.3, 0.3, 0.3);   // specular reflectance coefficient
 vec3 lightPos = vec3(5, 5, 5);   // light position in world coordinates
 
@@ -29,6 +29,7 @@ void main() {
         if(length(texture(gNormal, TexCoords).xyz) < 0.00001) discard;
         FragColor = normalize(texture(gNormal, TexCoords).xyzw);
     }
+    // I should have to move these to another shader but I will not bother.
     else if (renderMode == 4 || renderMode == 5 || renderMode == 6) {
         vec3 FragPos = texture(gPosition, TexCoords).rgb;
         if(length(FragPos) < 0.0001){

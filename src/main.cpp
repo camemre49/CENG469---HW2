@@ -18,7 +18,8 @@ void setObjectMatrices() {
 }
 
 void drawScene() {
-	glBindFramebuffer(GL_FRAMEBUFFER, isBlurEnabled ? sceneFBO : 0);
+	bool renderToSceneFBO = (currentRenderMode == TONEMAPPED || currentRenderMode == COMPOSITE_AND_MB) && isBlurEnabled;
+	glBindFramebuffer(GL_FRAMEBUFFER, renderToSceneFBO ? sceneFBO : 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	bool fullRender =
 		currentRenderMode == TONEMAPPED ||
@@ -40,6 +41,7 @@ void drawScene() {
 		glUniformMatrix4fv(modelingMatrixLoc[t], 1, GL_FALSE, glm::value_ptr(modelingMatrix));
 		glUniform3fv(eyePosLoc[t], 1, glm::value_ptr(eyePos));
 		glUniform1i(glGetUniformLocation(gProgram[t], "renderMode"), currentRenderMode);
+		glUniform1f(glGetUniformLocation(gProgram[t], "key"), keyValue);
 
 		glBindVertexArray(vao[t]);
 
@@ -48,7 +50,6 @@ void drawScene() {
 			glDepthFunc(GL_LEQUAL);
 			glUniform1f(glGetUniformLocation(gProgram[t], "exposure"), exposure);
 			glUniform1f(glGetUniformLocation(gProgram[t], "logAverageLuminance"), logAverageLuminance);
-			glUniform1f(glGetUniformLocation(gProgram[t], "key"), keyValue);
 			glUniform1f(glGetUniformLocation(gProgram[t], "gamma"), gammaValue);
 		}
 
@@ -80,7 +81,8 @@ void display()
 
 	// Draw the scene
 	drawScene();
-	if (isBlurEnabled) {
+	bool renderToSceneFBO = (currentRenderMode == TONEMAPPED || currentRenderMode == COMPOSITE_AND_MB) && isBlurEnabled;
+	if (renderToSceneFBO) {
 		applyMotionBlur();
 	}
 

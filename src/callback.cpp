@@ -35,6 +35,10 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 			case GLFW_KEY_M:
 				isBlurEnabled = !isBlurEnabled;
 				break;
+			case GLFW_KEY_G:
+				if (gammaValue == 2.2f) gammaValue = 1.0f;
+				else gammaValue = 2.2f;
+				break;
 			case GLFW_KEY_SPACE:
 				lastPressedKey = "SPACE";
 			static bool isFullScreen = false;
@@ -67,9 +71,11 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 
 			// Key value control:
 			case GLFW_KEY_UP:
+				lastPressedKey = "GLFW_KEY_UP";
 				keyValue *= 1.5f;
 				break;
 			case GLFW_KEY_DOWN:
+				lastPressedKey = "GLFW_KEY_DOWN";
 				keyValue /= 1.5f;
 				break;
 
